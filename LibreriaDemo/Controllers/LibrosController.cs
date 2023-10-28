@@ -194,9 +194,11 @@ namespace LibreriaDemo.Controllers
                     Venta venta = new()
                     {
                         Libro = libro,
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Today,
                         Cantidad = model.Cantidad,
+                        Total = libro.Precio * (decimal)model.Cantidad,
                     };
+                   
                     _context.Add(venta);
                     await _context.SaveChangesAsync();
                 }

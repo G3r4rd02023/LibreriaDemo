@@ -7,7 +7,7 @@
 <div class=" col-md-12">
     <div class=" card">
         <div class ="card-header text-center">
-            <h5>Venta</h5>
+            <h5>Confirmar Compra</h5>
         </div>
         <div class=" card-body">
             <form asp-action="Vender" method="post" enctype="multipart/form-data">
@@ -34,12 +34,12 @@
                     </dd>
                 </dl>
                 <div class="form-group">
-                    <label></label>
+                    <label><strong>Seleccione la cantidad:</strong></label>
                     <input asp-for="Cantidad" class="form-control" placeholder=" Cantidad" />
                     <span asp-validation-for="Cantidad" class="text-danger"></span>
                 </div>
                
-                <div class=" card-footer ">
+                <div class=" card-footer text-center">
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Guardar</button>
                         <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>

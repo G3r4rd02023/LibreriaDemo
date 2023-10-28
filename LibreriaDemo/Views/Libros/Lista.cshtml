@@ -27,7 +27,7 @@
 
 <p>
     <a onclick="showInPopup('@Url.Action("Crear", "Libros", new { id = 0 }, Context.Request.Scheme)' ,
-    '')" class="btn btn-sm btn-primary text-white"><i class="fa fa-plus-circle"></i> Agregar una categoria</a>
+    '')" class="btn btn-sm btn-primary text-white"><i class="fa fa-plus-circle"></i> Agregar un libro</a>
 </p>
 
 <div class="col-md-12">
@@ -64,7 +64,7 @@
                                 <a onclick="showInPopup('@Url.Action("Editar", "Libros", new { id = item.Id }, Context.Request.Scheme)' ,
                     '')" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil-alt"></i> </a>
                                 <a onclick="showInPopup('@Url.Action("Vender", "Libros", new { id = item.Id }, Context.Request.Scheme)' ,
-                    '')" class="btn btn-outline-info btn-sm"><i class="fa-cart-arrow-down "></i> </a>
+                    '')" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-cart-shopping"></i></a>
                                 <button data-id="@item.Id" class="btn btn-outline-danger btn-sm deleteItem" data-bs-toggle="modal"
                                         data-bs-target="#deleteDialog">
                                     <i class="fa fa-trash"></i>
