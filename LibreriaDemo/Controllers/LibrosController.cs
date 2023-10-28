@@ -157,5 +157,56 @@ namespace LibreriaDemo.Controllers
 
             return RedirectToAction(nameof(Lista));
         }
+
+        public async Task<IActionResult> Vender(int id)
+        {          
+            var libro = await _context.Libros.FindAsync(id);
+
+            if (libro == null)
+            {
+                return NotFound();
+            }
+
+            VentaViewModel model = new()
+            {
+                Libro = libro,
+                LibroId = id,
+                Titulo = libro.Titulo,
+                Precio = libro.Precio,
+                URLImagen = libro.URLImagen,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Vender(VentaViewModel model)
+        {
+           if(ModelState.IsValid)
+            {
+                Libro libro = await _context.Libros.FindAsync(model.LibroId);
+                if (libro == null)
+                {
+                    return NotFound();
+                }
+                try
+                {
+                    Venta venta = new()
+                    {
+                        Libro = libro,
+                        Fecha = DateTime.Now,
+                        Cantidad = model.Cantidad,
+                    };
+                    _context.Add(venta);
+                    await _context.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError(ex.Message, "Ocurrio un error");
+                };
+                return RedirectToAction("Lista");
+            }
+            return View(model);
+        }
     }
 }
