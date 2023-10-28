@@ -8,22 +8,22 @@ namespace LibreriaDemo.Controllers
 {
     public class LibrosController : Controller
     {
-        
+
         private readonly LibreriaContext _context;
         private readonly IServicioLista _servicioLista;
         private readonly IServicioImagen _servicioImagen;
 
         public LibrosController(LibreriaContext context, IServicioLista servicioLista, IServicioImagen servicioImagen)
         {
-            _context = context;           
+            _context = context;
             _servicioLista = servicioLista;
             _servicioImagen = servicioImagen;
         }
         public async Task<IActionResult> Lista()
         {
             return View(await _context.Libros
-                .Include(l=>l.Categoria)
-                .Include(l=>l.Autor)
+                .Include(l => l.Categoria)
+                .Include(l => l.Autor)
                 .ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace LibreriaDemo.Controllers
                 Categorias = await _servicioLista.GetListaCategorias(),
                 Autores = await _servicioLista.GetListaAutores(),
             };
-           
+
             return View(libro);
         }
 
@@ -69,7 +69,7 @@ namespace LibreriaDemo.Controllers
 
         public async Task<IActionResult> Editar(int? id)
         {
-            if (id == null || _context.Libros == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -79,33 +79,55 @@ namespace LibreriaDemo.Controllers
             {
                 return NotFound();
             }
+
+            libro.Categorias = await _servicioLista.GetListaCategorias();
+            libro.Autores = await _servicioLista.GetListaAutores();
+
             return View(libro);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(int id, Libro libro)
+        public async Task<IActionResult> Editar(Libro libro, IFormFile Imagen)
         {
-            if (id != libro.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(libro);
+                    var libroExistente = await _context.Libros.FindAsync(libro.Id);
+                    if (libroExistente == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (Imagen != null)
+                    {
+                        Stream image = Imagen.OpenReadStream();
+                        string urlimagen = await _servicioImagen.SubirImagen(image, Imagen.FileName);
+                        libroExistente.URLImagen = urlimagen;
+                    }
+
+                    libroExistente.Titulo = libro.Titulo;
+                    libroExistente.Autor = await _context.Autores.FindAsync(libro.AutorId);
+                    libroExistente.Categoria = await _context.Categorias.FindAsync(libro.CategoriaId);
+                    libroExistente.Precio = libro.Precio;
+
+                    _context.Update(libroExistente);
                     await _context.SaveChangesAsync();
+
                     return RedirectToAction("Lista");
                 }
-                catch (Exception ex)
+                catch
                 {
-
-                    ModelState.AddModelError(ex.Message, "Ocurrio un error al actualizar");
+                    ModelState.AddModelError(string.Empty, "Ha ocurrido un error");
                 }
             }
+
+            libro.Categorias = await _servicioLista.GetListaCategorias();
+            libro.Autores = await _servicioLista.GetListaAutores();
+
             return View(libro);
         }
+
 
         public async Task<IActionResult> Eliminar(int? id)
         {

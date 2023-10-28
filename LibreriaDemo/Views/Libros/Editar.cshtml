@@ -1,0 +1,54 @@
+﻿@model LibreriaDemo.Models.Entidades.Libro
+@{
+    ViewData["Title"] = "Editar";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5> Editar Libro</h5>
+        </div>
+        <div class=" card-body text-center">
+            <form asp-action="Editar" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Autores"/>
+                <input type="hidden" asp-for="Categorias"/>
+                <div class="form-group">
+                    <label></label>
+                    <input asp-for="Titulo" class="form-control" placeholder=" Nombre" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <select asp-for="AutorId" asp-items="Model.Autores" class="form-control"></select>
+                    <span asp-validation-for="AutorId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-control"></select>
+                    <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <input asp-for="Precio" class="form-control" placeholder="Precio" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <input type="file" class="form-control mb-3" name="Imagen">
+                    <span asp-validation-for="URLImagen" class="text-danger"></span>
+                </div>
+                <div class=" card-footer ">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
