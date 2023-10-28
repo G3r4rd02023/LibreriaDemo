@@ -12,6 +12,6 @@ namespace LibreriaDemo.Models.Entidades
         [DataType(DataType.MultilineText)]
         public string Descripcion { get; set;}
 
-
+        public ICollection<Libro> Libros { get; set; }
     }
 }

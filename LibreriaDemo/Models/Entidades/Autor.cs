@@ -12,5 +12,7 @@ namespace LibreriaDemo.Models.Entidades
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         public DateTime FechaNacimiento { get; set;}
 
+        public ICollection<Libro> Libros { get; set; }
+
     }
 }

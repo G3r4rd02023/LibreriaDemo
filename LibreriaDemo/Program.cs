@@ -1,3 +1,4 @@
+using LibreriaDemo.Helpers;
 using LibreriaDemo.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,9 @@ namespace LibreriaDemo
             {
                 o.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSQL"));
             });
+
+            builder.Services.AddScoped<IServicioLista, ServicioLista>();
+            builder.Services.AddScoped<IServicioImagen, ServicioImagen>();
 
             var app = builder.Build();
 
