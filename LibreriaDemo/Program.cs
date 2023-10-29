@@ -1,5 +1,7 @@
 using LibreriaDemo.Helpers;
 using LibreriaDemo.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibreriaDemo
@@ -20,6 +22,24 @@ namespace LibreriaDemo
 
             builder.Services.AddScoped<IServicioLista, ServicioLista>();
             builder.Services.AddScoped<IServicioImagen, ServicioImagen>();
+            builder.Services.AddScoped<IServicioUsuario, ServicioUsuario>();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.LoginPath = "/Login/IniciarSesion";
+                   options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+               });
+
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(
+                    new ResponseCacheAttribute
+                    {
+                        NoStore = true,
+                        Location = ResponseCacheLocation.None,
+                    }
+                   );
+            });
 
             var app = builder.Build();
 
@@ -35,12 +55,12 @@ namespace LibreriaDemo
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=IniciarSesion}/{id?}");
 
             app.Run();
         }

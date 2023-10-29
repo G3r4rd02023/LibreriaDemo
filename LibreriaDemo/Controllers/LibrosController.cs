@@ -12,12 +12,14 @@ namespace LibreriaDemo.Controllers
         private readonly LibreriaContext _context;
         private readonly IServicioLista _servicioLista;
         private readonly IServicioImagen _servicioImagen;
+        private readonly IServicioUsuario _servicioUsuario;
 
-        public LibrosController(LibreriaContext context, IServicioLista servicioLista, IServicioImagen servicioImagen)
+        public LibrosController(LibreriaContext context, IServicioLista servicioLista, IServicioImagen servicioImagen, IServicioUsuario servicioUsuario)
         {
             _context = context;
             _servicioLista = servicioLista;
             _servicioImagen = servicioImagen;
+            _servicioUsuario = servicioUsuario;
         }
         public async Task<IActionResult> Lista()
         {
@@ -160,7 +162,14 @@ namespace LibreriaDemo.Controllers
         }
 
         public async Task<IActionResult> Vender(int id)
-        {          
+        {
+
+            Usuario usuario = await _servicioUsuario.GetUsuario(User.Identity.Name);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
             var libro = await _context.Libros.FindAsync(id);
 
             if (libro == null)
@@ -175,6 +184,7 @@ namespace LibreriaDemo.Controllers
                 Titulo = libro.Titulo,
                 Precio = libro.Precio,
                 URLImagen = libro.URLImagen,
+                Usuario = usuario,
             };
 
             return View(model);
@@ -185,6 +195,12 @@ namespace LibreriaDemo.Controllers
         {
            if(ModelState.IsValid)
             {
+                Usuario usuario = await _servicioUsuario.GetUsuario(User.Identity.Name);
+                if (usuario == null)
+                {
+                    return NotFound();
+                }
+
                 Libro libro = await _context.Libros.FindAsync(model.LibroId);
                 if (libro == null)
                 {
@@ -198,6 +214,7 @@ namespace LibreriaDemo.Controllers
                         Fecha = DateTime.Today,
                         Cantidad = model.Cantidad,
                         Total = libro.Precio * (decimal)model.Cantidad,
+                        Usuario = usuario,
                     };
                    
                     _context.Add(venta);

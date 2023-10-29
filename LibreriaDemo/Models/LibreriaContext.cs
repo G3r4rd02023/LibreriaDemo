@@ -14,6 +14,7 @@ namespace LibreriaDemo.Models
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Libro> Libros { get; set; }
         public DbSet<Venta> Ventas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -38,6 +38,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Fecha</th>
+                        <th scope="col">Cliente</th>
                         <th scope="col">Titulo</th>                      
                         <th scope="col">Precio</th>
                         <th scope="col">Cantidad</th>
@@ -52,6 +53,7 @@
                         <tr>
                             <th scope="row">@item.Id</th>
                             <td> @item.Fecha.ToString("dd-MM-yyyy") </td>
+                            <td> @Html.DisplayFor(modelItem => item.Usuario.NombreUsuario)</td>
                             <td> @Html.DisplayFor(modelItem => item.Libro.Titulo)</td>                            
                             <td> @Html.DisplayFor(modelItem => item.Libro.Precio)</td>
                             <td> @Html.DisplayFor(modelItem => item.Cantidad)</td>
@@ -105,7 +107,7 @@
                             filename: 'Reporte Libros',
                             title: 'Lista de LIbros',
                             exportOptions: {
-                                columns: [1, 2, 3, 4]
+                                columns: [1, 2, 3, 4,5]
                             },
                             className: 'btn-exportar-excel',
 
@@ -117,7 +119,7 @@
                             filename: 'Reporte Libros',
                             title: 'Lista de Libros',
                             exportOptions: {
-                                columns: [1, 2, 3, 4]
+                                columns: [1, 2, 3, 4,5]
                             },
                             className: 'btn-exportar-pdf',
                         },
@@ -127,7 +129,7 @@
                             text: '<i class="fas fa-print"></i>',
                             title: 'Lista de Libros',
                             exportOptions: {
-                                columns: [1, 2, 3, 4]
+                                columns: [1, 2, 3, 4,5]
                             },
                             className: 'btn-exportar-print'
 

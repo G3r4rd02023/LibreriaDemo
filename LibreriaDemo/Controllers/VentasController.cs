@@ -24,6 +24,7 @@ namespace LibreriaDemo.Controllers
             return View(await _context.Ventas
                 .Include(v=>v.Libro).ThenInclude(l=>l.Autor)
                 .Include(v=>v.Libro).ThenInclude(l=>l.Categoria)
+                .Include(v=>v.Usuario)
                 .ToListAsync());
         }
     }

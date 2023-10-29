@@ -17,7 +17,6 @@ namespace LibreriaDemo.Models
         public float Cantidad { get; set; }
 
         public DateTime Fecha { get; set; } = DateTime.Now;
-
-        
+        public Usuario Usuario { get; set; }
     }
 }

@@ -9,6 +9,9 @@ namespace LibreriaDemo.Models.Entidades
 
         public Libro Libro { get; set; }
 
+        public Usuario Usuario { get; set; }
+
+
         [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public float Cantidad {  get; set; }

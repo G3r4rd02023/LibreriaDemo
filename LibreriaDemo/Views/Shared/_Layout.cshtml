@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-light bg-secondary fixed-top">
+        <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid">
                 <a class="navbar-brand text-light" href="#">Libreria Demo</a>
                 <button class="navbar-toggler text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -27,7 +27,7 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                <a class="nav-link active" asp-controller="Home" asp-action="Index">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"></a>
@@ -45,13 +45,10 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li><a class="dropdown-item"  asp-controller="Ventas" asp-action="Lista">Ventas</a></li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesion</a>
                                 </ul>
                             </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
-                        </form>
+                        </ul>                        
                     </div>
                 </div>
             </div>
