@@ -25,6 +25,13 @@
     </style>
 }
 
+@if (TempData["ALertMessage"] != null)
+{
+    <div class=" alert alert-success">
+        <strong> Ok!!---</strong>@TempData["AlertMessage"]
+    </div>
+}
+
 <p>
     <a onclick="showInPopup('@Url.Action("Crear", "Categorias", new { id = 0 }, Context.Request.Scheme)' ,
     '')" class="btn btn-sm btn-primary text-white"><i class="fa fa-plus-circle"></i> Agregar una categoria</a>
@@ -33,7 +40,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class=" card-header text-center">
-            <h5>Lista de Autores</h5>
+            <h5>Lista de Categorias</h5>
         </div>
         <div class=" card-body">
             <table id="autor" class="table table-hover table responsive table stripped">

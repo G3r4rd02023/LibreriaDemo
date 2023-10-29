@@ -33,6 +33,7 @@ namespace LibreriaDemo.Controllers
                 {
                     _context.Add(categoria);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Categoria creada exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch
@@ -72,6 +73,7 @@ namespace LibreriaDemo.Controllers
                 {
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Categoria actualizada exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch (Exception ex)
@@ -102,7 +104,7 @@ namespace LibreriaDemo.Controllers
             {
                 _context.Categorias.Remove(categoria);
                 await _context.SaveChangesAsync();
-
+                TempData["AlertMessage"] = "Categoria eliminada exitosamente!!!";
             }
             catch (Exception ex)
             {

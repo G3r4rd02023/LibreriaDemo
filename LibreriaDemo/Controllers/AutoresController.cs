@@ -35,6 +35,7 @@ namespace LibreriaDemo.Controllers
                 {
                     _context.Add(autor);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Autor creado exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch
@@ -74,6 +75,7 @@ namespace LibreriaDemo.Controllers
                 {
                     _context.Update(autor);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Autor actualizado exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch (Exception ex)
@@ -103,8 +105,8 @@ namespace LibreriaDemo.Controllers
             try
             {
                 _context.Autores.Remove(autor);
-                await _context.SaveChangesAsync();               
-
+                await _context.SaveChangesAsync();
+                TempData["AlertMessage"] = "Autor eliminado exitosamente!!!";
             }
             catch(Exception ex)
             {

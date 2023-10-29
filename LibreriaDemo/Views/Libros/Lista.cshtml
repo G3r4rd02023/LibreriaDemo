@@ -25,6 +25,12 @@
     </style>
 }
 
+@if (TempData["ALertMessage"] != null)
+{
+    <div class=" alert alert-success">
+        <strong> Ok!!---</strong>@TempData["AlertMessage"]
+    </div>
+}
 <p>
     <a onclick="showInPopup('@Url.Action("Crear", "Libros", new { id = 0 }, Context.Request.Scheme)' ,
     '')" class="btn btn-sm btn-primary text-white"><i class="fa fa-plus-circle"></i> Agregar un libro</a>

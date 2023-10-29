@@ -55,6 +55,7 @@ namespace LibreriaDemo.Controllers
 
                     _context.Add(libro);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "LIbro creado exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch
@@ -113,7 +114,7 @@ namespace LibreriaDemo.Controllers
 
                     _context.Update(libroExistente);
                     await _context.SaveChangesAsync();
-
+                    TempData["AlertMessage"] = "Libro creado exitosamente!!!";
                     return RedirectToAction("Lista");
                 }
                 catch
@@ -148,7 +149,7 @@ namespace LibreriaDemo.Controllers
             {
                 _context.Libros.Remove(libro);
                 await _context.SaveChangesAsync();
-
+                TempData["AlertMessage"] = "LIbro eliminado exitosamente!!!";
             }
             catch (Exception ex)
             {
@@ -201,6 +202,7 @@ namespace LibreriaDemo.Controllers
                    
                     _context.Add(venta);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Libro vendido exitosamente!!!";
                 }
                 catch(Exception ex)
                 {
