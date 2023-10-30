@@ -14,7 +14,7 @@ namespace LibreriaDemo.Models
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public float Cantidad { get; set; }
+        public int Cantidad { get; set; }
 
         public DateTime Fecha { get; set; } = DateTime.Now;
         public Usuario Usuario { get; set; }
